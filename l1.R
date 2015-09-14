@@ -52,4 +52,6 @@ plot(ppf_tech.df, type = "l", xlab = "столове", ylab = "маси", col = 
 lines(ppf.df)
 
 
-
+library(stargazer)
+stargazer(t(ppf.df), type = "text")
+t(ppf.df)
