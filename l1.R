@@ -55,3 +55,22 @@ lines(ppf.df)
 library(stargazer)
 stargazer(t(ppf.df), type = "text")
 t(ppf.df)
+
+
+
+de_en1 <- data.frame(c(0,15), c(20,0), c(0,10), c(30,0))
+colnames(de_en1) <- c("DE_wool", "DE_wine", "EN_wool", "EN_wine")
+de_en1
+plot(c(0,20), c(0,30), type = 'n')
+lines(x = de_en1$DE_wool, y = de_en1$DE_wine, col = "red")
+lines(x = de_en1$EN_wool, y = de_en1$EN_wine, col = "blue")
+legend(15,25, c("Germany", "England"), col = c("red", "blue"), lty = c(1,1), cex = 0.5)
+
+
+plot(c(0,20), c(0,35), type = 'n', xlab = "wool", ylab = "wine", bty = "n")
+england1 <- data.frame(c(0,10), c(30,0))
+germany1 <- data.frame(c(0,15), c(20,0))
+lines(england1, col = "blue")
+lines(germany1, col = "red", bty = "n")
+legend("topright", c("England", "Germany"), col = c("blue", "red"), lty = c(1,1), cex = 0.7, bty = "n")
+grid()
