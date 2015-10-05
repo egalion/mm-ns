@@ -1,11 +1,20 @@
-# scratchpad
+---
+title: "Лекция 3. Еластичност на търсенето и предлагането. Потребителско поведение" 
+author: "Александър Косулиев"
+date: "03.10.2015"
+output: html_document
+---
 
-library(knitr)
 
-knit2html("l2.Rmd")
+```{r global_options, include = FALSE}
+knitr::opts_chunk$set(fig.width = 8, fig.height = 6,
+                      fig.path = "figure/",
+                      echo = FALSE, warning = FALSE, 
+                      message = FALSE)
+```
 
+```{r razlichna-elastichnost}
 
-png("file3.png")
 plot(1, xlim = c(0,100), ylim = c(0,10), xaxs = "i", yaxs = "i",
      bty = "n", type = "n", xlab = "Количество, единици", 
      ylab = "Цена, лв.",
@@ -29,9 +38,10 @@ text(53,5.3, "E", adj = 0)
 text(10,7.5, expression("D"[1]))
 text(40,9.5, expression("D"[2]))
 text(75,9, expression("еластичност D"[1]~">"~"еластичност D"[2]))
-dev.off()
+```
 
-png("file4.png")
+
+```{r elastichnost-predlagane}
 plot(1, xlim = c(0,100), ylim = c(0,10), xaxs = "i", yaxs = "i",
      bty = "n", type = "n", xlab = "Количество, единици", 
      ylab = "Цена, лв.",
@@ -42,9 +52,10 @@ segments(10,3,90,7, lwd = 2, col = "darkblue")
 text(60,9.5, expression("S"[1]))
 text(90,7.5, expression("S"[2]))
 text(75,2, expression("еластичност S"[2]~">"~"еластичност S"[1]))
-dev.off()
+```
 
-png("file5.png")
+
+```{r danyk-elastichno-tyrsene, fig.width=12, fig.height=6}
 par(mfrow = c(1,2))
 plot(1, xlim = c(0,100), ylim = c(0,10), bty = "n",
      xaxs = "i", yaxs = "i", type = "n",
@@ -90,11 +101,11 @@ segments(46,5.3,46,0, lwd = 2, lty = 2, col = "darkblue")
 segments(0,3.3,46,3.3, lwd = 2, lty = 2, col = "darkblue")
 rect(0,3.3,46,5, col = "orange", density = 20, border = "transparent")
 rect(0,5,46,5.3, col = "green", density = 20, border = "transparent")
-dev.off()
+```
 
 
+```{r danyk-neelastichno-tyrsene, fig.width=12, fig.height=6}
 
-png("file6.png")
 par(mfrow = c(1,2))
 plot(1, xlim = c(0,100), ylim = c(0,10), bty = "n",
      xaxs = "i", yaxs = "i", type = "n",
@@ -140,12 +151,11 @@ segments(46,6.6,46,0, lwd = 2, lty = 2, col = "darkblue")
 segments(0,4.6,46,4.6, lwd = 2, lty = 2, col = "darkblue")
 rect(0,4.6,46,6, col = "orange", density = 20, border = "transparent")
 rect(0,5,46,6.6, col = "green", density = 20, border = "transparent")
-dev.off()
 
+```
 
+```{r danychen-efekt, fig.width=12, fig.height=6}
 
-
-png("file9.png")
 par(mfrow = c(1,2))
 plot(1, xlab = "Количество, единици", ylab = "Цена, лв.", 
      type = "n", xaxs = "i", yaxs = "i", 
@@ -178,15 +188,91 @@ text(37,1, expression("S"[1]))
 text(37,2, expression("S"[2]))
 text(37,9, "D")
 dev.off()
+```
+
+```{r subsidiq-elasticnost, fig.width=12, fig.height=6}
+
+par(mfrow = c(1,2))
+plot(1, xlab = "Количество, единици", ylab = "Цена, лв.", 
+     type = "n", xaxs = "i", yaxs = "i", 
+     xlim = c(0,100), ylim = c(0,10), bty = "n",
+     main = "А) Ефект от субсидия при еластични D и S")
+grid()
+segments(10,7,90,3, lwd = 2) # D
+segments(10,3,90,7, lwd = 2) # S
+text(50,5.3, expression("E"[1]))
+segments(10,2,90,6, lwd = 2, col = "darkgray") # S2
+text(67,4.5, expression("E"[2]))
+segments(0,5,70,5, lwd = 2, lty = 2, col = "darkgray")
+segments(50,5,50,0, lwd = 2, lty = 2, col = "darkgray")
+segments(70,5,70,0, lwd = 2, lty = 2, col = "darkgray")
+segments(60,4.5,60,0, lwd = 2, lty = 2, col = "darkgray")
+segments(50,5,70,5, lwd = 2, lty = 2, col = "green")
+text(95,3, "D")
+text(95,7, expression("S"[1]))
+text(95,6, expression("S"[2]))
+rect(0,4,50,5, col = adjustcolor("yellow", alpha.f = 0.3), border = "transparent")
+rect(0,3.5,60,4.5, col = adjustcolor("green", alpha.f = 0.3), border = "darkgreen")
+plot(1, xlab = "Количество, единици", ylab = "Цена, лв.", 
+     type = "n", xaxs = "i", yaxs = "i", 
+     xlim = c(0,100), ylim = c(0,10), bty = "n",
+     main = "Б) Ефект от субсидия при нееластични D и S")
+grid()
+segments(30,9,70,1, lwd = 2) # D
+segments(30,1,70,9, lwd = 2) # S
+text(50,5.5, expression("E"[1]))
+text(30,9.3, "D")
+text(70,9.3, expression("S"[1]))
+text(75,9.3, expression("S"[2]))
+segments(35,1,75,9, lwd = 2, col = "darkgray") # S2
+text(56,4.5, expression("E"[2]))
+segments(0,5,55,5, lwd = 2, lty = 2, col = "darkgray")
+segments(50,5,50,0, lwd = 2, lty = 2, col = "darkgray")
+segments(55,5,55,0, lwd = 2, lty = 2, col = "darkgray")
+segments(0,4.5,52.5,4.5, lwd = 2, lty = 2, col = "darkgray")
+segments(52.5,4.5,52.5,0, lwd = 2, lty = 2, col = "darkgray")
+segments(50,5,52.5,5, lwd = 2, lty = 2, col = "green")
+rect(0,4,50,5, col = adjustcolor("yellow", alpha.f = 0.3), border = "transparent")
+rect(0,3.5,52.5,4.5, col = adjustcolor("green", alpha.f = 0.3), border = "green")
+dev.off()
+```
 
 
+|Продукт X|Продукт Y|Полезност|
+|---------|---------|---------|
+| 3 бр.| 27 бр. | 50 ед. |
+| 5 бр.| 17 бр. | 50 ед. |
+| 7 бр.| 10 бр. | 50 ед. |
+| 9 бр.| 7 бр.  | 50 ед. |
+| 11 бр.| 4 бр. | 50 ед. |
+| 13 бр.| 2 бр. | 50 ед. |
+| 15 бр.| 1 бр. | 50 ед. |
+
+
+
+```{r indifference-curve}
 prX <- c(3,5,7,9,11,13,15)
 prY <- c(27,17,10,7,4,2,1)
 prX2 <- prX + 3
 prY2 <- prY + 3
-
 plot(prX, prY, type = "o", xlim = c(0,20), ylim = c(0,32), 
-     xaxs = "i", yaxs = "i", lwd = 2, pch = 20,
+     xaxs = "i", yaxs = "i", lwd = 2, pch = 20, bty = "n",
+     xlab = "Продукт X", ylab = "Продукт Y",
+     main = "Крива на безразличието")
+grid()
+text(4,28, "A")
+text(6.5,18, "B")
+text(8,11, "C")
+text(10,8, "D")
+text(12,5, "E")
+text(14,3, "F")
+text(16,2, "G")
+
+```
+
+```{r ic-mrs}
+plot(prX, prY, type = "o", xlim = c(0,20), ylim = c(0,32), 
+     xaxs = "i", yaxs = "i", lwd = 2, pch = 20, bty = "n",
      xlab = "Продукт X", ylab = "Продукт Y",
      main = "Крива на безразличието")
 grid()
@@ -211,11 +297,13 @@ text(6,8.5, expression(paste(Delta, "Y = -2")), srt = 90, adj = 0.5, cex = 0.7)
 text(8,6, expression(paste(Delta, "X = 2")), adj = 0.5, cex = 0.7)
 text(16,22, expression("A"%->%"B"~~~~~~"MRS"[XY]~"="~frac(paste(Delta, "Y"), paste(Delta, "X"))~"="~frac(paste("-10"),paste(2))~"="~"-5"), cex = 0.7)
 text(16,8.5, expression("C"%->%"D"~~~~~~"MRS"[XY]~~"="~~frac(paste(Delta, "Y"), paste(Delta, "X"))~~"="~~frac(paste("-2"), paste("2"))~~"="~~"-1"), cex = 0.7)
-dev.off()
 
-png("%02d.png")
+```
+
+```{r ic-shift}
+
 plot(prX, prY, type = "o", xlim = c(0,20), ylim = c(0,32), 
-     xaxs = "i", yaxs = "i", lwd = 2, pch = 20,
+     xaxs = "i", yaxs = "i", lwd = 2, pch = 20, bty = "n",
      xlab = "Продукт X", ylab = "Продукт Y",
      main = "Криви на безразличието")
 grid()
@@ -229,11 +317,22 @@ text(10,26, expression("IC"[2]~"полезност"~">"~"IC"[1]~"полезно�
 lines(prX2, prY2, type = "l", col = "darkblue", lwd = 2)
 segments(0,17,9,17, lty = 2, col = "grey")
 segments(9,0,9,17, lty = 2, col = "grey")
-dev.off()
+```
 
-png("file1.png")
+```{r budget-line}
+plot(x = c(0,15), y = c(30,0), xlim = c(0,25), ylim = c(0,35),
+     type = "l", lwd = 2, bty = "n",
+     xlab = "Продукт X, единици", ylab = "Продукт Y, единици", 
+     xaxs = "i", yaxs = "i",
+     main = "Бюджетно ограничение")
+grid()
+
+```
+
+```{r budget-price-change}
+
 plot(x = c(0,15), y = c(30,0), xlim = c(0,35), ylim = c(0,35),
-     type = "l", lwd = 2,
+     type = "l", lwd = 2, bty = "n",
      xlab = "Продукт X, единици", ylab = "Продукт Y, единици", 
      xaxs = "i", yaxs = "i",
      main = "Бюджетно ограничение, промяна в цената на X")
@@ -244,11 +343,13 @@ text(11,11, "A")
 points(20,10, pch = 20)
 text(21,11, "B")
 arrows(15,2,27,2, length = 0.1, col = "orange", lwd = 1)
-dev.off()
 
-png("file1.png")
+```
+
+```{r budget-line-change}
+
 plot(x = c(0,15), y = c(30,0), xlim = c(0,70), ylim = c(0,70),
-     type = "l", lwd = 2,
+     type = "l", lwd = 2, bty = "n",
      xlab = "Продукт X, единици", ylab = "Продукт Y, единици", 
      xaxs = "i", yaxs = "i",
      main = "Промяна в бюджетното ограничение при неизменни цени")
@@ -260,17 +361,12 @@ points(20,20, pch = 20)
 text(21,21, "B")
 arrows(1,31,9,39, length = 0.1, col = "orange", lwd = 1)
 arrows(16,1,24,9, length = 0.1, col = "orange", lwd = 1)
-dev.off()
-
-(15/x, add = TRUE, from = c(1,1), to = c(15,15))
-curve(15/(x+2), add = TRUE, from = c(1,1), to = c(15,15))
-curve(15/(x-2), add = TRUE, from = c(1,1), to = c(15,15))
+```
 
 
+```{r consumer-choice-model}
 lineX <- seq(3,30, 0.5)
 lineY <- 100/lineX
-
-png("file02.png)
 plot(lineX, lineY, type = "l", xaxs = "i", yaxs = "i", lwd = 2, col = "darkgray",
      xlim = c(0,35), ylim = c(0,35), bty = "n",
      xlab = "Продукт X, единици", ylab = "Продукт Y, единици",
@@ -294,10 +390,10 @@ text(21,21, "F")
 text(5,34, expression("IC"[1]))
 text(10,34, expression("IC"[2]))
 text(15,34, expression("IC"[3]), adj = 0)
-dev.off()
+```
 
+```{r consumer-choice-change}
 
-png("file2.png")
 plot(lineX, lineY, xaxs = "i", yaxs = "i", 
      type = "n", lwd = 2, col = "darkgray",
      xlim = c(0,70), ylim = c(0,50), bty = "n",
@@ -310,16 +406,9 @@ lines(x = lineX + 5, y = lineY + 5, type = "l", lwd = 2)
 lines(x = lineX + 10.625, y = lineY + 10.625, type = "l", lwd = 2, col = "darkorange")
 points(15,15, pch = 20)
 points(24,18, pch = 20)
-#points(20,20, pch = 20)
 text(16,17, "E")
 text(26,19, "G", adj = 0)
 text(11,38, expression("IC"[2]))
 text(15,43, expression("IC"[4]), adj = 0)
 dev.off()
-
-
-legend(17,3.3, c("Иван", "Мария", "Георги"), 
-       col = c("blue", "green", "red"),  
-       bty = "n", lty = c(1,1), cex = 0.7)
-
-
+```
