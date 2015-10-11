@@ -1,0 +1,61 @@
+---
+title: "Лекция 4. Производство на стоки и услуги" 
+author: "Александър Косулиев"
+date: "10.10.2015"
+output: html_document
+---
+
+```{r global_options, include = FALSE}
+knitr::opts_chunk$set(fig.width = 8, fig.height = 6,
+                      fig.path = "figure/",
+                      echo = FALSE, warning = FALSE, 
+                      message = FALSE)
+```
+
+| L     | TP    | MP    | AP    |
+|------:|------:|------:|------:|
+| 1.00  | 5.00  | 5.00  | 5.00  |
+| 2.00  | 11.00 | 6.00  | 5.50  |
+| 3.00  | 18.00 | 7.00  | 6.00  |
+| 4.00  | 32.00 | 14.00 | 8.00  |
+| 5.00  | 50.00 | 18.00 | 10.00 |
+| 6.00  | 68.00 | 18.00 | 11.33 |
+| 7.00  | 77.00 | 9.00  | 11.00 |
+| 8.00  | 80.00 | 3.00  | 10.00 |
+| 9.00  | 82.00 | 2.00  | 9.11  |
+| 10.00 | 83.00 | 1.00  | 8.30  |
+
+
+```{r obsht_sreden_predelen_produkt, fig.width = 6, fig.height = 8}
+prcompDF <- read.csv("data/production-competition.csv")
+par(mfrow = c(2,1), mar = c(4,4,2,2))
+plot(x = c(0, prcompDF$L), y = c(0, prcompDF$TP), 
+     xaxs = "i", yaxs = "i", bty = "n", type = "o", 
+     lwd = 2, pch = 20,
+     xlab = "Работници, бр.", ylab = "Общ продукт",
+     xlim = c(0,11), ylim = c(0,90))
+title(main = "Общ, среден и пределен продукт")
+grid()
+text(10.5,83, "TP")
+rect(0,0,5,90, col = adjustcolor("green", alpha.f = 0.1), border = "transparent")
+rect(5,0,6,90, col = adjustcolor("yellow", alpha.f = 0.1), border = "transparent")
+rect(6,0,10,90, col = adjustcolor("red", alpha.f = 0.1), border = "transparent")
+plot(x = prcompDF$L, y = prcompDF$TP, 
+     xaxs = "i", yaxs = "i", bty = "n", type = "n", 
+     xlab = "Работници, бр.", ylab = "Среден и пределен продукт",
+     xlim = c(0,11), ylim = c(0,20))
+grid()
+lines(x = prcompDF$L, y = prcompDF$AP, 
+      lwd = 2, col = "red", type = "o", pch = 20)
+lines(x = prcompDF$L, y = prcompDF$MP,
+      lwd = 2, col = "darkred", type = "o", pch = 20)
+text(10.5,8.3, "AP")
+text(10.5,1, "MP")
+rect(0,0,5,20, col = adjustcolor("green", alpha.f = 0.1), border = "transparent")
+rect(5,0,6,20, col = adjustcolor("yellow", alpha.f = 0.1), border = "transparent")
+rect(6,0,10,20, col = adjustcolor("red", alpha.f = 0.1), border = "transparent")
+
+
+```
+
+
