@@ -190,17 +190,19 @@ grid()
 segments(10,7,90,3, lwd = 2) # D
 segments(10,3,90,7, lwd = 2) # S
 text(50,5.3, expression("E"[1]))
+text(50,6.5, expression("Q"[D]))
+text(70,6.5, expression("Q"[S]))
 segments(10,2,90,6, lwd = 2, col = "darkgray") # S2
 text(67,4.5, expression("E"[2]))
 segments(0,5,70,5, lwd = 2, lty = 2, col = "darkgray")
-segments(50,5,50,0, lwd = 2, lty = 2, col = "darkgray")
-segments(70,5,70,0, lwd = 2, lty = 2, col = "darkgray")
+segments(50,6,50,0, lwd = 2, lty = 2, col = "darkgray")
+segments(70,6,70,0, lwd = 2, lty = 2, col = "darkgray")
 segments(60,4.5,60,0, lwd = 2, lty = 2, col = "darkgray")
 segments(50,5,70,5, lwd = 2, lty = 2, col = "green")
+segments(50,6,70,6, lwd = 2, lty = 2, col = "green")
 text(95,3, "D")
 text(95,7, expression("S"[1]))
 text(95,6, expression("S"[2]))
-rect(0,4,50,5, col = adjustcolor("yellow", alpha.f = 0.3), border = "transparent")
 rect(0,3.5,60,4.5, col = adjustcolor("green", alpha.f = 0.3), border = "darkgreen")
 plot(1, xlab = "Количество, единици", ylab = "Цена, лв.", 
      type = "n", xaxs = "i", yaxs = "i", 
@@ -210,19 +212,21 @@ grid()
 segments(30,9,70,1, lwd = 2) # D
 segments(30,1,70,9, lwd = 2) # S
 text(50,5.5, expression("E"[1]))
+#text(50,6.5, expression("Q"[D]))
+#text(55,6.5, expression("Q"[S]))
 text(30,9.3, "D")
 text(70,9.3, expression("S"[1]))
 text(75,9.3, expression("S"[2]))
 segments(35,1,75,9, lwd = 2, col = "darkgray") # S2
 text(56,4.5, expression("E"[2]))
 segments(0,5,55,5, lwd = 2, lty = 2, col = "darkgray")
-segments(50,5,50,0, lwd = 2, lty = 2, col = "darkgray")
-segments(55,5,55,0, lwd = 2, lty = 2, col = "darkgray")
+segments(50,6,50,0, lwd = 2, lty = 2, col = "darkgray")
+segments(55,6,55,0, lwd = 2, lty = 2, col = "darkgray")
 segments(0,4.5,52.5,4.5, lwd = 2, lty = 2, col = "darkgray")
 segments(52.5,4.5,52.5,0, lwd = 2, lty = 2, col = "darkgray")
-segments(50,5,52.5,5, lwd = 2, lty = 2, col = "green")
-rect(0,4,50,5, col = adjustcolor("yellow", alpha.f = 0.3), border = "transparent")
-rect(0,3.5,52.5,4.5, col = adjustcolor("green", alpha.f = 0.3), border = "green")
+segments(50,5,55.5,5, lwd = 2, lty = 2, col = "green")
+segments(50,6,55,6, lwd = 2, lty = 2, col = "green")
+rect(0,3.5,52.5,4.5, col = adjustcolor("green", alpha.f = 0.3), border = "darkgreen")
 dev.off()
 
 
