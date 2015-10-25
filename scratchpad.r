@@ -548,6 +548,42 @@ mcintervalDF
 write.csv(mcintervalDF, file = "data/mcinterval.csv", sep = ",", row.names = FALSE)
 
 
+# relation between AP, MP and TC
+# not shown in lecture
+png("AP-MP-TC.png")
+par(mfrow = c(2,1), mar = c(3,4,3,1))
+plot(x = prcompDF$L, y = prcompDF$AP, bty = "n",
+     type = "o", pch = 20, lwd = 2, col = "red",
+     xaxs = "i", yaxs = "i", 
+     xlim = c(0,11), ylim = c(0,20), 
+     xlab = "", ylab = "Среден и пределен продукт",
+     main = "Среден и пределен продукт и общи разходи")
+grid()
+mtext("Работници, бр.", side = 1, line = 2)
+lines(x = prcompDF$L, y = prcompDF$MP, lwd = 2, type = "o", pch = 20, col = "darkred")
+text(10.5,8.3, "AP")
+text(10.5,1, "MP")
+rect(0,0,5,20, col = adjustcolor("green", alpha.f = 0.1), border = "transparent")
+rect(5,0,6,20, col = adjustcolor("yellow", alpha.f = 0.1), border = "transparent")
+rect(6,0,10,20, col = adjustcolor("red", alpha.f = 0.1), border = "transparent")
+plot(x = prcompDF$L, y = prcompDF$TC, 
+     type = "o", pch = 20,
+     lwd = 2, xaxs = "i", yaxs = "i", bty = "n",
+     xlim = c(0,11), ylim = c(0,1670), 
+     xlab = "Количество, бр.", ylab = "Общи разходи, лв.",
+     main = "")
+grid()
+text(87, 1600, "TC")
+axis(3, at = 0:10, labels = c(0, prcompDF$TP), lty = 2, 
+     outer = FALSE, cex.axis = 0.7, padj = 1, tcl = -0.5, line = -1)
+mtext("Общ продукт, бр.", side = 3, line = 1, cex = 0.7)
+mtext("Работници, бр.", side = 1, line = 2)
+rect(0,0,5,1670, col = adjustcolor("green", alpha.f = 0.1), border = "transparent")
+rect(5,0,6,1670, col = adjustcolor("yellow", alpha.f = 0.1), border = "transparent")
+rect(6,0,10,1670, col = adjustcolor("red", alpha.f = 0.1), border = "transparent")
+dev.off()
+
+
 prcomp_more_DF <- read.csv("data/production-competition-more-capital.csv")
 
 # Draw a new ATC curve with more capital
