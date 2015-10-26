@@ -758,3 +758,74 @@ rect(0,18.25,80,25, col = adjustcolor("green", alpha.f = 0.1),
      border = "transparent")
 dev.off()
 
+
+# profit shown using TC and TR 
+png("pc-profit-TC-TR.png", width = 600, height = 1200)
+par(mfrow = c(2,1), mar = c(3,4,3,1))
+plot(x = prcompDF$TP, y = prcompDF$MC,
+     xaxs = "i", yaxs = "i", xlim = c(0,100), ylim = c(10,40),
+     xlab = "Продукция, бр.", 
+     ylab = "Пределни разходи и приходи, лв.",
+     type = "o", lwd = 2, col = "darkred", pch = 20, 
+     bty = "n", main = "Максимална печалба")
+grid(nx=10)
+#lines(x = prcompDF$TP, y = prcompDF$MC, type = "l", 
+#      col = "red", lty = 2)
+lines(x = prcompDF$TP, y = prcompDF$ATC, type = "o", 
+      col = "red", lwd = 2, pch = 20)
+lines(x = c(0,prcompDF$TP), y = c(20,prcompDF$MR), type = "o",
+      col = "darkblue", lwd = 2, pch = 20)
+text(87,18.61, "ATC", adj = 0)
+text(87,35, "MC", adj = 0)
+text(87,20, "P=MR", adj = 0)
+abline(v = 77, lty = 2, lwd = 2, col = "darkgray") 
+mtext("Обща продукция", side = 1, line = 2)
+plot(x = prcompDF$TP, y = prcompDF$TC,
+     xaxs = "i", yaxs = "i", xlim = c(0,100), ylim = c(0,1700),
+     xlab = "Продукция, бр.", ylab = "Общи разходи и приходи, лв.",
+     type = "o", lwd = 2, col = "darkred", pch = 20, 
+     bty = "n", main = "")
+grid(nx=10)
+lines(x = prcompDF$TP, y = prcompDF$TR, type = "o",
+      col = "green", lwd = 2, pch = 20)
+text(87,1660, "TR", adj = 0)
+text(87,1545, "TC", adj = 0)
+abline(v = 77, lty = 2, lwd = 2, col = "darkgray")
+mtext("Обща продукция", side = 1, line = 2)
+dev.off()
+
+# profit shown using TC and TR  zoomed
+png("pc-profit-TC-TRi-zoom.png", width = 600, height = 1200)
+par(mfrow = c(2,1), mar = c(3,4,3,1))
+plot(x = prcompDF$TP, y = prcompDF$MC,
+     xaxs = "i", yaxs = "i", xlim = c(60,90), ylim = c(15,25),
+     xlab = "Продукция, бр.", 
+     ylab = "Пределни разходи и приходи, лв.",
+     type = "o", lwd = 2, col = "red", pch = 20, 
+     bty = "n", main = "Максимална печалба")
+grid(nx=10)
+#lines(x = prcompDF$TP, y = prcompDF$MC, type = "l", 
+#      col = "red", lty = 2)
+lines(x = prcompDF$TP, y = prcompDF$ATC, type = "o", 
+      col = "red", lwd = 2, pch = 20)
+lines(x = c(0,prcompDF$TP), y = c(20,prcompDF$MR), type = "o",
+      col = "darkblue", lwd = 2, pch = 20)
+text(87,18.61, "ATC", adj = 0)
+text(87,35, "MC", adj = 0)
+text(87,20, "P=MR", adj = 0)
+abline(v = 77, lty = 2, lwd = 2, col = "darkgray") 
+mtext("Обща продукция", side = 1, line = 2)
+plot(x = prcompDF$TP, y = prcompDF$TC,
+     xaxs = "i", yaxs = "i", xlim = c(60,90), ylim = c(1200,1700),
+     xlab = "Продукция, бр.", ylab = "Общи разходи и приходи, лв.",
+     type = "o", lwd = 2, col = "darkred", pch = 20, 
+     bty = "n", main = "")
+grid(nx=10)
+lines(x = prcompDF$TP, y = prcompDF$TR, type = "o",
+      col = "darkgreen", lwd = 2, pch = 20)
+text(87,1660, "TR", adj = 0)
+text(87,1545, "TC", adj = 0)
+abline(v = 77, lty = 2, lwd = 2, col = "darkgray")
+mtext("Обща продукция", side = 1, line = 2)
+dev.off()
+
