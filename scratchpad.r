@@ -669,7 +669,7 @@ dev.off()
 
 
 mcintervalgraphDF <- read.csv("./data/mcintervalgraphDF.csv")
-
+prcompDF <- read.csv("./data/production-competition.csv")
 
 # profit decisions by a competitive firm
 png("pc-profit-max.png")
@@ -783,7 +783,7 @@ mtext("Обща продукция", side = 1, line = 2)
 plot(x = prcompDF$TP, y = prcompDF$TC,
      xaxs = "i", yaxs = "i", xlim = c(0,100), ylim = c(0,1700),
      xlab = "Продукция, бр.", ylab = "Общи разходи и приходи, лв.",
-     type = "o", lwd = 2, col = "darkred", pch = 20, 
+     type = "o", lwd = 2, col = "red", pch = 20, 
      bty = "n", main = "")
 grid(nx=10)
 lines(x = prcompDF$TP, y = prcompDF$TR, type = "o",
@@ -801,7 +801,7 @@ plot(x = prcompDF$TP, y = prcompDF$MC,
      xaxs = "i", yaxs = "i", xlim = c(60,90), ylim = c(15,25),
      xlab = "Продукция, бр.", 
      ylab = "Пределни разходи и приходи, лв.",
-     type = "o", lwd = 2, col = "red", pch = 20, 
+     type = "o", lwd = 2, col = "darkred", pch = 20, 
      bty = "n", main = "Максимална печалба")
 grid(nx=10)
 #lines(x = prcompDF$TP, y = prcompDF$MC, type = "l", 
@@ -826,6 +826,310 @@ lines(x = prcompDF$TP, y = prcompDF$TR, type = "o",
 text(87,1660, "TR", adj = 0)
 text(87,1545, "TC", adj = 0)
 abline(v = 77, lty = 2, lwd = 2, col = "darkgray")
-mtext("Обща продукция", side = 1, line = 2)
+text("Обща продукция", side = 1, line = 2)
+dev.off()
+
+
+# profit by a competitive firm in the long-term
+
+for (i in 1:nrow(prcompDF)) {
+	prcompDF$MRminATC[i] <- min(prcompDF$ATC)
+}
+png("pc-profit-max-long-term.png",  width=800, height=600)
+par(mfrow = c(1,2))
+plot(x = prcompDF$TP, y = prcompDF$MC,
+     xaxs = "i", yaxs = "i", xlim = c(0,100), ylim = c(10,26),
+     xlab = "Продукция, бр.", ylab = "Разходи и приходи, лв.",
+     type = "o", lwd = 2, col = "darkred", pch = 20, 
+     bty = "n", main = "Краткосрочна печалба")
+grid(nx=10)
+lines(x = prcompDF$TP, y = prcompDF$ATC, type = "o", 
+      col = "red", lwd = 2, pch = 20)
+lines(x = c(0,prcompDF$TP), y = c(20,prcompDF$MR), type = "o",
+      col = "darkblue", lwd = 2, pch = 20)
+text(87,18.61, "ATC", adj = 0)
+text(87,25, "MC", adj = 0)
+text(87,20, "P=MR", adj = 0)
+rect(0,0,77,18.12, col = adjustcolor("red", alpha.f = 0.1),
+     border = "transparent")
+rect(0,18.12,77,20, col = adjustcolor("green", alpha.f = 0.1),
+     border = "transparent")
+arrows(25,19.8,25,18.3, lty = 2, length = 0.1)
+arrows(55,19.8,55,18.3, lty = 2, length = 0.1)
+plot(x = prcompDF$TP, y = prcompDF$MC,
+     xaxs = "i", yaxs = "i", xlim = c(0,100), ylim = c(10,26),
+     xlab = "Продукция, бр.", ylab = "Разходи и приходи, лв.",
+     type = "o", lwd = 2, col = "darkred", pch = 20, 
+     bty = "n", main = "Дългосрочна печалба")
+grid(nx=10)
+lines(x = prcompDF$TP, y = prcompDF$ATC, type = "o", 
+      col = "red", lwd = 2, pch = 20)
+lines(x = c(0,prcompDF$TP), 
+      y = c(min(prcompDF$ATC),prcompDF$MRminATC), type = "o",
+      col = "darkblue", lwd = 2, pch = 20)
+text(87,18.61, "ATC", adj = 0)
+text(87,25, "MC", adj = 0)
+text(87,18, "P=MR", adj = 0)
+rect(0,0,77,18.12, col = adjustcolor("red", alpha.f = 0.1),
+     border = "transparent")
+dev.off()
+
+
+
+# Shutdown condition
+
+for (i in 1:nrow(prcompDF)) {
+	prcompDF$MRunderATC[i] <- min(prcompDF$ATC) - 0.5
+}
+for (i in 1:nrow(prcompDF)) {
+	prcompDF$MRunderAVC[i] <- min(prcompDF$AVC) - 0.5
+}
+png("pc-shutdown.png",  width=800, height=600)
+par(mfrow = c(1,2))
+plot(x = prcompDF$TP, y = prcompDF$MC,
+     xaxs = "i", yaxs = "i", xlim = c(0,100), ylim = c(13.5,23),
+     xlab = "Продукция, бр.", ylab = "Разходи и приходи, лв.",
+     type = "o", lwd = 2, col = "darkred", pch = 20, 
+     bty = "n", main = "Минимизиране на загубите")
+grid(nx=10)
+lines(x = prcompDF$TP, y = prcompDF$ATC, type = "o", 
+      col = "red", lwd = 2, pch = 20)
+lines(x = prcompDF$TP, y = prcompDF$AVC, type = "o",
+      col = "orange", lwd = 2, pch = 20)
+lines(x = c(0,prcompDF$TP), 
+      y = c(min(prcompDF$ATC)-0.5,prcompDF$MRunderATC), type = "o",
+      col = "darkblue", lwd = 2, pch = 20)
+text(87,18.61, "ATC", adj = 0)
+text(87,22, "MC", adj = 0)
+text(87,17.41, "AVC", adj = 0)
+text(87,min(prcompDF$ATC)-0.5, "P=MR", adj = 0)
+rect(0,min(prcompDF$ATC)-0.5,77,min(prcompDF$ATC), 
+     col = adjustcolor("red", alpha.f=0.1), 
+     border = "transparent")
+rect(0,0,77,min(prcompDF$ATC)-0.5,
+     col = adjustcolor("green", alpha.f=0.1),
+     border = "transparent")
+plot(x = prcompDF$TP, y = prcompDF$MC,
+     xaxs = "i", yaxs = "i", xlim = c(0,100), ylim = c(13.5,23),
+     xlab = "Продукция, бр.", ylab = "Разходи и приходи, лв.",
+     type = "o", lwd = 2, col = "darkred", pch = 20, 
+     bty = "n", main = "Преустановяване на производството")
+grid(nx=10)
+lines(x = prcompDF$TP, y = prcompDF$ATC, type = "o", 
+      col = "red", lwd = 2, pch = 20)
+lines(x = prcompDF$TP, y = prcompDF$AVC, type = "o",
+      col = "orange", lwd = 2, pch = 20)
+lines(x = c(0,prcompDF$TP), 
+      y = c(min(prcompDF$AVC)-0.5,prcompDF$MRunderAVC), type = "o",
+      col = "darkblue", lwd = 2, pch = 20)
+text(87,18.61, "ATC", adj = 0)
+text(87,22, "MC", adj = 0)
+text(87,min(prcompDF$AVC)-0.5, "P=MR", adj = 0)
+text(87,17.41, "AVC", adj = 0)
+rect(0,prcompDF$AVC[6],prcompDF$TP[6], prcompDF$ATC[6], 
+     col = adjustcolor("red", alpha.f=0.1), 
+     border = "transparent")
+rect(0,min(prcompDF$AVC)-0.5,prcompDF$TP[6], prcompDF$AVC[6], 
+     col = adjustcolor("darkorange", alpha.f=0.2), 
+     border = "transparent")
+rect(0,0,prcompDF$TP[6],min(prcompDF$AVC)-0.5,
+     col = adjustcolor("green", alpha.f=0.1),
+     border = "transparent")
+dev.off()
+
+
+png("monopol.png", width=1200, height=600)
+par(mfrow = c(1,3))
+plot(x = prcompDF$TP, y = prcompDF$MC,
+     xaxs = "i", yaxs = "i", xlim = c(0,90), ylim = c(-15,60),
+     xaxt="n",
+     xlab = "Продукция, бр.", ylab = "Разходи и приходи, лв.",
+     type = "o", lwd = 2, col = "darkred", pch = 20, 
+     bty = "n", main = "Печалба на монопол \nпри висока цена")
+grid(nx=10)
+axis(1, pos=0, at = c(0,prcompDF$TP[1:7],83,90),
+     labels = c(" ",prcompDF$TP[1:7],83,90)) 
+lines(x = prcompDF$TP, y = prcompDF$ATC, type = "o", 
+      col = "red", lwd = 2, pch = 20)
+lines(x = prcompDF$TP, y = prcompDF$Dmonopol, type = "o",
+      col = "darkblue", lwd = 2, pch = 20)
+lines(x = prcompDF$TP, y = prcompDF$MRmonopol, type = "o",
+      col = "darkgreen", lwd = 2, pch = 20)
+legend(70,60, c("MC", "ATC", "D=AR=P", "MR"), 
+       col = c("darkred", "red", "darkblue", "darkgreen"),  
+       bty = "n", lty = c(1,1), cex = 1.0)
+rect(0,0,prcompDF$TP[3],prcompDF$ATC[3], 
+     col = adjustcolor("red", alpha.f=0.1),
+     border = "transparent")
+rect(0,prcompDF$ATC[3],prcompDF$TP[3],prcompDF$Dmonopol[3],
+     col = adjustcolor("green", alpha.f=0.1),
+     border = "transparent")
+plot(x = prcompDF$TP, y = prcompDF$MC,
+     xaxs = "i", yaxs = "i", xlim = c(0,90), ylim = c(-15,60),
+     xaxt="n",
+     xlab = "Продукция, бр.", ylab = "Разходи и приходи, лв.",
+     type = "o", lwd = 2, col = "darkred", pch = 20, 
+     bty = "n", main = "Максимална \nпечалба")
+grid(nx=10)
+axis(1, pos=0, at = c(0,prcompDF$TP[1:7],83,90),
+     labels = c(" ",prcompDF$TP[1:7],83,90)) 
+lines(x = prcompDF$TP, y = prcompDF$ATC, type = "o", 
+      col = "red", lwd = 2, pch = 20)
+lines(x = prcompDF$TP, y = prcompDF$Dmonopol, type = "o",
+      col = "darkblue", lwd = 2, pch = 20)
+lines(x = prcompDF$TP, y = prcompDF$MRmonopol, type = "o",
+      col = "darkgreen", lwd = 2, pch = 20)
+legend(70,60, c("MC", "ATC", "D=AR=P", "MR"), 
+       col = c("darkred", "red", "darkblue", "darkgreen"),  
+       bty = "n", lty = c(1,1), cex = 1.0)
+rect(0,0,prcompDF$TP[5],prcompDF$ATC[5], 
+     col = adjustcolor("red", alpha.f=0.1),
+     border = "transparent")
+rect(0,prcompDF$ATC[5],prcompDF$TP[5],prcompDF$Dmonopol[5],
+     col = adjustcolor("green", alpha.f=0.1),
+     border = "transparent")
+plot(x = prcompDF$TP, y = prcompDF$MC,
+     xaxs = "i", yaxs = "i", xlim = c(0,90), ylim = c(-15,60),
+     xaxt="n",
+     xlab = "Продукция, бр.", ylab = "Разходи и приходи, лв.",
+     type = "o", lwd = 2, col = "darkred", pch = 20, 
+     bty = "n", main = "Печалба при условия\n на съвършен конкурент")
+grid(nx=10)
+axis(1, pos=0, at = c(0,prcompDF$TP[1:7],83,90),
+     labels = c(" ",prcompDF$TP[1:7],83,90)) 
+lines(x = prcompDF$TP, y = prcompDF$ATC, type = "o", 
+      col = "red", lwd = 2, pch = 20)
+lines(x = prcompDF$TP, y = prcompDF$Dmonopol, type = "o",
+      col = "darkblue", lwd = 2, pch = 20)
+lines(x = prcompDF$TP, y = prcompDF$MRmonopol, type = "o",
+      col = "darkgreen", lwd = 2, pch = 20)
+legend(70,60, c("MC", "ATC", "D=AR=P", "MR"), 
+       col = c("darkred", "red", "darkblue", "darkgreen"),  
+       bty = "n", lty = c(1,1), cex = 1.0)
+rect(0,0,prcompDF$TP[7],prcompDF$ATC[7], 
+     col = adjustcolor("red", alpha.f=0.1),
+     border = "transparent")
+rect(0,prcompDF$ATC[7],prcompDF$TP[7],prcompDF$Dmonopol[7],
+     col = adjustcolor("green", alpha.f=0.1),
+     border = "transparent")
+dev.off()
+
+
+# price discrimination
+png("price-discrimination.png", width = 800, height = 600)
+par(mfrow = c(1,2))
+plot(x = prcompDF$TP, y = prcompDF$MC,
+     xaxs = "i", yaxs = "i", xlim = c(0,90), ylim = c(-15,60),
+     xaxt="n",
+     xlab = "Продукция, бр.", ylab = "Разходи и приходи, лв.",
+     type = "o", lwd = 2, col = "darkred", pch = 20, 
+     bty = "n", main = "Максимална печалба \nпри единна цена")
+grid(nx=10)
+axis(1, pos=0, at = c(0,prcompDF$TP[1:7],83,90),
+     labels = c(" ",prcompDF$TP[1:7],83,90)) 
+lines(x = prcompDF$TP, y = prcompDF$ATC, type = "o", 
+      col = "red", lwd = 2, pch = 20)
+lines(x = prcompDF$TP, y = prcompDF$Dmonopol, type = "o",
+      col = "darkblue", lwd = 2, pch = 20)
+lines(x = prcompDF$TP, y = prcompDF$MRmonopol, type = "o",
+      col = "darkgreen", lwd = 2, pch = 20)
+legend(70,60, c("MC", "ATC", "D=AR=P", "MR"), 
+       col = c("darkred", "red", "darkblue", "darkgreen"),  
+       bty = "n", lty = c(1,1), cex = 1.0)
+rect(0,0,prcompDF$TP[5],prcompDF$ATC[5], 
+     col = adjustcolor("red", alpha.f=0.1),
+     border = "transparent")
+rect(0,prcompDF$ATC[5],prcompDF$TP[5],prcompDF$Dmonopol[5],
+     col = adjustcolor("green", alpha.f=0.1),
+     border = "transparent")
+plot(x = prcompDF$TP, y = prcompDF$MC,
+     xaxs = "i", yaxs = "i", xlim = c(0,90), ylim = c(-15,60),
+     xaxt="n",
+     xlab = "Продукция, бр.", ylab = "Разходи и приходи, лв.",
+     type = "o", lwd = 2, col = "darkred", pch = 20, 
+     bty = "n", main = "Печалба при \nдискриминационно ценообразуване")
+grid(nx=10)
+axis(1, pos=0, at = c(0,prcompDF$TP[1:7],83,90),
+     labels = c(" ",prcompDF$TP[1:7],83,90)) 
+lines(x = prcompDF$TP, y = prcompDF$ATC, type = "o", 
+      col = "red", lwd = 2, pch = 20)
+lines(x = prcompDF$TP, y = prcompDF$Dmonopol, type = "o",
+      col = "darkblue", lwd = 2, pch = 20)
+lines(x = prcompDF$TP, y = prcompDF$MRmonopol, type = "o",
+      col = "darkgreen", lwd = 2, pch = 20)
+legend(70,60, c("MC", "ATC", "D=AR=P", "MR"), 
+       col = c("darkred", "red", "darkblue", "darkgreen"),  
+       bty = "n", lty = c(1,1), cex = 1.0)
+rect(0,0,prcompDF$TP[3],prcompDF$ATC[3], 
+     col = adjustcolor("red", alpha.f=0.1),
+     border = "transparent")
+rect(0,prcompDF$ATC[3],prcompDF$TP[3],prcompDF$Dmonopol[3],
+     col = adjustcolor("green", alpha.f=0.1),
+     border = "transparent")
+rect(prcompDF$TP[3],0,prcompDF$TP[5],prcompDF$ATC[5], 
+     col = adjustcolor("red", alpha.f=0.1),
+     border = "transparent")
+rect(prcompDF$TP[3],prcompDF$ATC[5],prcompDF$TP[5],prcompDF$Dmonopol[5],
+     col = adjustcolor("green", alpha.f=0.1),
+     border = "transparent")
+dev.off()
+
+
+# oligopoly
+
+for (i in 1:nrow(prcompDF)) {
+	prcompDF$D1oligopol[i] <- 45 - 1/10*prcompDF$TP[i]
+}
+for (i in 1:nrow(prcompDF)) {
+	     prcompDF$D2oligopol[i] <- (40+50) - prcompDF$TP[i]
+}
+prcompDF <- transform(prcompDF, TR1oligopol = TP*D1oligopol)
+prcompDF <- transform(prcompDF, TR2oligopol = TP*D2oligopol)
+for (i in 1:nrow(prcompDF)) {
+	if (i<2) {
+		prcompDF$MR1oligopol[i] <- prcompDF$TR1oligopol[i]/prcompDF$TP[i]
+	}
+	else {
+		prcompDF$MR1oligopol[i] <- (prcompDF$TR1oligopol[i] - prcompDF$TR1oligopol[i-1])/(prcompDF$TP[i] - prcompDF$TP[i-1])
+	}
+}
+for (i in 1:nrow(prcompDF)) {
+	if (i<2) {
+		prcompDF$MR2oligopol[i] <- prcompDF$TR2oligopol[i]/prcompDF$TP[i]
+	}
+	else {
+		prcompDF$MR2oligopol[i] <- (prcompDF$TR2oligopol[i] - prcompDF$TR2oligopol[i-1])/(prcompDF$TP[i] - prcompDF$TP[i-1])
+	}
+}
+
+png("oligopoly.png")
+plot(x = prcompDF$TP, y = prcompDF$MC,
+     xaxs = "i", yaxs = "i", xlim = c(0,90), ylim = c(-15,60),
+     xaxt = "n",
+     xlab = "Продукция, бр.", ylab = "Разходи и приходи, лв.",
+     type = "o", lwd = 2, col = "darkred", pch = 20, 
+     bty = "n", main = "Производствени решения \n при олигопол")
+grid(nx=10)
+axis(1, pos=0, at = c(0,prcompDF$TP[1:7],83,90),
+     labels = c(" ",prcompDF$TP[1:7],83,90)) 
+lines(x = prcompDF$TP, y = prcompDF$ATC, type = "o", 
+      col = "red", lwd = 2, pch = 20)
+lines(x = prcompDF$TP[1:5], y = prcompDF$D1oligopol[1:5], type = "o",
+      col = "darkblue", lwd = 2, pch = 20)
+lines(x = prcompDF$TP[5:length(prcompDF$TP)],
+      y = prcompDF$D2oligopol[5:length(prcompDF$D2oligopol)], 
+      type = "o", col = "darkblue", lwd = 2, pch = 20)
+lines(x = prcompDF$TP[1:5], y = prcompDF$MR1oligopol[1:5], type = "o",
+      col = "darkgreen", lwd = 2, pch = 20)
+lines(x = prcompDF$TP[5:length(prcompDF$TP)], 
+      y = prcompDF$MR2oligopol[5:length(prcompDF$MR2oligopol)], 
+      type = "o", col = "darkgreen", lwd = 2, pch = 20)
+segments(prcompDF$TP[5],prcompDF$MR2oligopol[5],
+	 prcompDF$TP[5],prcompDF$MR1oligopol[5],
+	 lty = 2, col = "darkgreen")
+text(52,42, "E")
+legend(65,60, c("MC", "ATC", "D=AR=P", "MR"), 
+       col = c("darkred", "red", "darkblue", "darkgreen"),  
+       bty = "n", lty = c(1,1), cex = 1.0)
 dev.off()
 
