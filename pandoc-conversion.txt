@@ -1,0 +1,2 @@
+
+pandoc --latex-engine=xelatex --variable mainfont="Liberation Serif" --variable sansfont="Liberation Sans" --variable monofont="Liberation Mono" --variable fontsize=11pt -V geometry:margin=1in --variable fontsize=12pt --toc l3.md -o adsfa.pdf
