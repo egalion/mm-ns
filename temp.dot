@@ -1,0 +1,17 @@
+
+digraph circular_flow {
+
+goods [label="Пазар на крайни стоки и услуги", shape=box, pos="0,3!"] 
+inputs [label="Пазар на производствени фактори", shape=box, pos="10,300!"]
+households [label="Домакинства"]
+firms [label="Фирми"]
+
+firms->goods
+goods->households [label="стоки и услуги"]
+households->inputs [label="труд, земя, капитал"]
+inputs->firms
+households->goods [label="разходи", color=red]
+goods->firms [color=red]
+firms->inputs [color=red]
+inputs->households [label="работна заплата, рента, лихва", color=red]
+}
