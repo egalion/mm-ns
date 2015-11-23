@@ -1133,3 +1133,27 @@ legend(65,60, c("MC", "ATC", "D=AR=P", "MR"),
        bty = "n", lty = c(1,1), cex = 1.0)
 dev.off()
 
+# aggregate demand
+png("aggregatedemand.png")
+plot(1, xlim = c(0,100), ylim = c(0,10), bty = "n",
+     xaxs = "i", yaxs = "i", type = "n",
+     xlab = "Национален дохдо, хил. лв.", ylab = "Ценово равнище.",
+     main = "Съвкупно търсене")
+segments(10,8,90,2, lwd = 2) # D
+text(10,8.2, "АD")
+dev.off()
+
+
+segments(40,1,60,9, lwd = 2) # S 
+text(60,9.2, expression("S"[1]))
+segments(0,5,50,5, lwd = 2, lty = 2, col = "darkgray")
+segments(50,7,50,0, lwd = 2, lty = 2, col = "darkgray")
+segments(0,7,50,7, lwd = 2, lty = 2, col = "darkgray")
+segments(23,7,50,7, lwd = 2, lty = 2, col = "red")
+segments(35,1,55,9, lwd = 2, col = "darkgray") # S2
+text(55,9.2, expression("S"[2]))
+text(53,5, expression("E"[1]), adj = 0)
+text(43,5.8, expression("E"[2]))
+text(48,7.3, expression("Q"[S]))
+text(24,7.3, expression("Q"[D]))
+dev.off()
