@@ -1,0 +1,31 @@
+title: "Парична политика"
+author: "Александър Косулиев"
+date: "12.12.2015"
+output: 
+  pdf_document: 
+    toc: yes
+    toc_depth: 3
+    latex_engine: xelatex
+mainfont: Liberation Serif
+sansfont: Liberation Sans
+monofont: Liberation Mono
+---
+
+```{r global_options, include = FALSE}
+knitr::opts_chunk$set(fig.width = 8, fig.height = 6,
+                      fig.path = "figure/",
+                      #dev='cairo_pdf',
+                      echo = FALSE, warning = FALSE, 
+                      message = FALSE)
+```
+
+## 1. Пари, банки и банкова система
+
+## 2. Парична (монетарна) политика
+
+## 3. Инструменти на паричната политика
+
+## 4. Видове парична политика
+
+## 5. Паричен съвет
+
