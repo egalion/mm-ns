@@ -1,11 +1,12 @@
+---
 title: "Парична политика"
 author: "Александър Косулиев"
 date: "12.12.2015"
 output: 
   pdf_document: 
+    latex_engine: xelatex
     toc: yes
     toc_depth: 3
-    latex_engine: xelatex
 mainfont: Liberation Serif
 sansfont: Liberation Sans
 monofont: Liberation Mono
