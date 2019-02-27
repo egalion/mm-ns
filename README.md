@@ -1,3 +1,7 @@
+<script type="text/javascript"
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
 Лекции по икономика
 
 [Лекция 1.](l1.md) Същност на икономическата наука [pdf](l1.pdf)
